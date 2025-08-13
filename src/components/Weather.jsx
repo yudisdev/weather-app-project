@@ -21,17 +21,17 @@ const Weather = () => {
         <p className='location text-[#fff] text-[40px]'>London</p>
         <div className="weather-data w-[100%] mt-[40px] text-[#fff] flex justify-between">
           <div className="col flex items-start gap-[12px] text-[22px]">
-            <img src={humidity_icon} alt="" />
+            <img className='w-[26px] mt-[10px]' src={humidity_icon} alt="" />
             <div>
               <p>91 %</p>
-              <span>Humidity</span>
+              <span className='block text-[16px]'>Humidity</span>
             </div>
           </div>
           <div className="col flex items-start gap-[12px] text-[22px]">
-            <img src={wind_icon} alt="" />
+            <img className='w-[26px] mt-[10px]' src={wind_icon} alt="" />
             <div>
               <p>3.6 km/h</p>
-              <span>Wind Speed</span>
+              <span className='block text-[16px]'>Wind Speed</span>
             </div>
           </div>
         </div>
