@@ -10,6 +10,17 @@ import wind_icon from '../assets/wind.png'
 
 
 const Weather = () => {
+
+const saearch = async (city) => {
+   try {
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${import.meta.env.VITE_APP_ID}`;
+
+      const response =
+   } catch (error) {
+
+   }
+}
+
   return (
     <div className='weather place-self-center p-[40px] rounded-lg bg-[linear-gradient(45deg,#2f4680,#500ae4)] flex flex-col items-center'>
         <div className='search-bar flex gap-6 items-center '>
