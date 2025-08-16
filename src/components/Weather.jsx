@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import clear_icon from '../assets/clear.png'
 import search_icon from '../assets/search.png'
 import cloud_icon from '../assets/cloud.png'
@@ -11,6 +11,7 @@ import wind_icon from '../assets/wind.png'
 
 const Weather = () => {
 
+  const inputRef = useRef()
   const [weatherData, setWeatherData] = useState(false);
 
   const allIcons = {
@@ -37,13 +38,13 @@ const search = async (city) => {
       const response = await fetch(url);
       const data = await response.json();
       console.log(data);
-      const icon = allIcons[data.weather[0].icon] || clear_icon
+      const icon = allIcons[data.weather[0].icon] || clear_icon;
       setWeatherData({
         humidity: data.main.humidity,
         windSpeed: data.wind.speed,
         temperature: Math.floor(data.main.temp),
-        location: data.name
-        icon:
+        location: data.name,
+        icon : icon
       })
 
    } catch (error) {
@@ -52,30 +53,30 @@ const search = async (city) => {
 }
 
 useEffect(()=>{
-  search("London");
+  search("Denpasar");
 },[])
 
   return (
     <div className='weather place-self-center p-[40px] rounded-lg bg-[linear-gradient(45deg,#2f4680,#500ae4)] flex flex-col items-center'>
         <div className='search-bar flex gap-6 items-center '>
-            <input className='h-[50px] border-none outline-none rounded-[40px] px-4 text-[#626262] bg-[#ebfffc] text-[18px]' type="text" placeholder='Search'/>
-            <img className='w-[50px] p-[15px] rounded-[50%] bg-[#ebfffc] cursor-pointer' src={search_icon} alt="" />
+            <input ref={inputRef} className='h-[50px] border-none outline-none rounded-[40px] px-4 text-[#626262] bg-[#ebfffc] text-[18px]' type="text" placeholder='Search'/>
+            <img className='w-[50px] p-[15px] rounded-[50%] bg-[#ebfffc] cursor-pointer' src={search_icon} alt="" onClick={()=>search(inputRef.current.value)} />
         </div>
-        <img className='weather-icon w-[150px] my-[30px] mx-0' src={clear_icon} alt="" />
-        <p className='temperature text-[#fff] text-[80px] leading-none'>16°c</p>
-        <p className='location text-[#fff] text-[40px]'>London</p>
+        <img className='weather-icon w-[150px] my-[30px] mx-0' src={weatherData.icon} alt="" />
+        <p className='temperature text-[#fff] text-[80px] leading-none'>{weatherData.temperature}°c</p>
+        <p className='location text-[#fff] text-[40px]'>{weatherData.location}</p>
         <div className="weather-data w-[100%] mt-[40px] text-[#fff] flex justify-between">
           <div className="col flex items-start gap-[12px] text-[22px]">
             <img className='w-[26px] mt-[10px]' src={humidity_icon} alt="" />
             <div>
-              <p>91 %</p>
+              <p>{weatherData.humidity} %</p>
               <span className='block text-[16px]'>Humidity</span>
             </div>
           </div>
           <div className="col flex items-start gap-[12px] text-[22px]">
             <img className='w-[26px] mt-[10px]' src={wind_icon} alt="" />
             <div>
-              <p>3.6 km/h</p>
+              <p>{weatherData.windSpeed}km/h</p>
               <span className='block text-[16px]'>Wind Speed</span>
             </div>
           </div>
